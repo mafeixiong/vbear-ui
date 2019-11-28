@@ -12,12 +12,15 @@
   },
   "keywords": [
     "vue",
-    "ui"
+    "uiss"
   ],
   "author": "mafeixiong",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/mafeixiong/vbear-ui/issues"
   },
-  "homepage": "https://github.com/mafeixiong/vbear-ui#readme"
+  "homepage": "https://github.com/mafeixiong/vbear-ui#readme",
+  "dependencies": {
+    "vue": "^2.6.10"
+  }
 }
