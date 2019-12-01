@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <style>
-    * {margin: 0; padding: 0; box-sizing: border-box;}
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
         --button-height: 32px;
         --font-size: 14px;
@@ -22,13 +22,15 @@
     body {
         font-size: var(--font-size);
     }
+    .icon { width: 1em; height: 1em}
 </style>
 <body>
 
 <div id="app">
-    <v-button>按钮</v-button>
+    <v-button icon="setting" icon-position="right">按钮</v-button>
 </div>
 
 <script src="./src/app.js"></script>
+<script src="//at.alicdn.com/t/font_1092420_hfrc90xntm.js"></script>
 </body>
 </html>
