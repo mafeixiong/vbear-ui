@@ -8,22 +8,24 @@
     </button>
 </template>
 <script>
-export default {
-    props: {
-        icon: {},
-        loading: {
-            type: Boolean,
-            default: false
-        },
-        iconPosition: {
-            type: String,
-            default: 'left',
-            validator (value) {
-                return value === 'left' || value === 'right'
+    import Icon from './icon'
+    export default {
+        components: { 'v-icon': Icon },
+        props: {
+            icon: {},
+            loading: {
+                type: Boolean,
+                default: false
+            },
+            iconPosition: {
+                type: String,
+                default: 'left',
+                validator (value) {
+                    return value === 'left' || value === 'right'
+                }
             }
         }
     }
-}
 </script>
 <style lang="scss">
     @keyframes spin {
