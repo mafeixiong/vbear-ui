@@ -1,8 +1,8 @@
 {
-  "name": "vbear-ui",
+  "name": "liberty-test",
   "version": "0.0.1",
   "description": "这个一个ui框架",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev-test": "parcel watch test/* --no-cache & karma start",
