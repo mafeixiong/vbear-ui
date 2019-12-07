@@ -10,6 +10,7 @@
 <script>
     import Icon from './icon'
     export default {
+        name: "vButton",
         components: { 'v-icon': Icon },
         props: {
             icon: {},

@@ -19,6 +19,9 @@
     #app {
         margin: 20px;
     }
+    .box{
+        margin: 20px;
+    }
     body {
         font-size: var(--font-size);
     }
@@ -26,16 +29,24 @@
 <body>
 
 <div id="app">
-    <v-button icon="settings" :loading="loading" @click="loading = !loading" icon-position="right">按钮</v-button>
-    <v-button-group>
-        <v-button>上一页</v-button>
-        <v-button>更多</v-button>
-        <v-button>下一页</v-button>
-    </v-button-group>
+    <div class="box">
+        <v-input value="马飞雄" readonly></v-input>
+        <v-input value="马飞雄" disabled></v-input>
+        <v-input value="马" error="姓名不能少于两个字"></v-input>
+    </div>
+    <div class="box">
+        <v-button icon="settings" :loading="loading" @click="loading = !loading" icon-position="right">按钮</v-button>
+    </div>
+    <div class="box">
+        <v-button-group>
+            <v-button>上一页</v-button>
+            <v-button>更多</v-button>
+            <v-button>下一页</v-button>
+        </v-button-group>
+    </div>
     <div id="test"></div>
 </div>
 
 <script src="./src/app.js"></script>
-<script src="//at.alicdn.com/t/font_1092420_ra4rvypn3o.js"></script>
 </body>
 </html>
