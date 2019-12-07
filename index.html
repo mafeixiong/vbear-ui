@@ -32,7 +32,7 @@
     <div class="box">
         <v-input value="马飞雄" readonly></v-input>
         <v-input value="马飞雄" disabled></v-input>
-        <v-input value="马" error="姓名不能少于两个字"></v-input>
+        <v-input value="马" @change="changeEvent" error="姓名不能少于两个字"></v-input>
     </div>
     <div class="box">
         <v-button icon="settings" :loading="loading" @click="loading = !loading" icon-position="right">按钮</v-button>

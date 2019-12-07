@@ -11,6 +11,11 @@ new Vue({
     el: '#app',
     data: {
         loading: false
+    },
+    methods: {
+        changeEvent(evn) {
+            console.log(evn)
+        }
     }
 })
 
