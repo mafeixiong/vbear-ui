@@ -10,7 +10,8 @@ Vue.component('v-input', Input)
 new Vue({
     el: '#app',
     data: {
-        loading: false
+        loading: false,
+        message: "双向绑定"
     },
     methods: {
         changeEvent(evn) {
