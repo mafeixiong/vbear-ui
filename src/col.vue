@@ -1,9 +1,6 @@
 <template>
     <div class="col" :class="colClass" :style="colStyle">
-        <div style="border: 1px solid green;">
-            <slot></slot>
-
-        </div>
+        <slot></slot>
     </div>
 </template>
 <script>
@@ -18,7 +15,7 @@
         return valid
     }
     export default {
-        name: 'vCol',
+        name: 'GuluCol',
         props: {
             span: {
                 type: [Number, String]
@@ -26,35 +23,32 @@
             offset: {
                 type: [Number, String]
             },
-            phone: { type: Object, validator},
-            ipad: {type: Object, validator},
-            narrowPc: {type: Object, validator},
-            pc: {type: Object, validator},
-            widePc: {type: Object, validator}
+            ipad: {type: Object, validator,},
+            narrowPc: {type: Object, validator,},
+            pc: {type: Object, validator,},
+            widePc: {type: Object, validator,}
         },
-        data() {
+        data () {
             return {
-                gutter: 0
+                gutter: 0,
             }
         },
         computed: {
-            colClass() {
-                let {span, offset, phone, ipad, narrowPc, pc, widePc} = this
-                let phoneClass = []
+            colClass () {
+                let {span, offset, ipad, narrowPc, pc, widePc} = this
                 return [
                     span && `col-${span}`,
                     offset && `offset-${offset}`,
-                    ... (phone && [`col-phone-${phone.span}`]),
                     ... (ipad && [`col-ipad-${ipad.span}`]),
                     ... (narrowPc && [`col-narrow-pc-${narrowPc.span}`]),
                     ... (pc && [`col-pc-${pc.span}`]),
                     ... (widePc && [`col-wide-pc-${widePc.span}`]),
                 ]
             },
-            colStyle() {
+            colStyle () {
                 return {
                     paddingLeft: this.gutter / 2 + 'px',
-                    paddingRight: this.gutter / 2 + 'px'
+                    paddingRight: this.gutter / 2 + 'px',
                 }
             }
         }
@@ -72,20 +66,6 @@
         @for $n from 1 through 24 {
             &.#{$class-prefix}#{$n} {
                 margin-left: ($n / 24) * 100%;
-            }
-        }
-        @media (max-width: 576px) {
-            $class-prefix: col-phone-;
-            @for $n from 1 through 24 {
-                &.#{$class-prefix}#{$n} {
-                    width: ($n / 24) * 100%;
-                }
-            }
-            $class-prefix: offset-phone-;
-            @for $n from 1 through 24 {
-                &.#{$class-prefix}#{$n} {
-                    margin-left: ($n / 24) * 100%;
-                }
             }
         }
         @media (min-width: 577px) and (max-width: 768px) {
