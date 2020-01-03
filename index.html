@@ -16,60 +16,26 @@
         --border-color: #999;
         --border-color-hover: #666;
     }
-    #app {
-        margin: 20px;
-    }
-    .box{
-        margin: 20px;
-    }
     body {
         font-size: var(--font-size);
     }
-
 </style>
 <body>
 <style>
     .demo {
         background: #ddd;
         border: 1px solid #666;
-        height: 100px;
     }
 </style>
 <div id="app">
-    <div class="box">
-        <v-input value="马飞雄" readonly></v-input>
-        <v-input value="马飞雄" disabled></v-input>
-        <v-input v-model="message"></v-input>
-        <v-input value="马" @change="changeEvent" error="姓名不能少于两个字"></v-input>
-    </div>
-    <div class="box">
-        <v-button icon="settings" :loading="loading" @click="loading = !loading" icon-position="right">按钮</v-button>
-    </div>
-    <div class="box">
-        <v-button-group>
-            <v-button>上一页</v-button>
-            <v-button>更多</v-button>
-            <v-button>下一页</v-button>
-        </v-button-group>
-    </div>
-    <div id="test"></div>
-    <div style="border: 1px solid black;">
-        <v-row gutter="20">
-            <v-col span="23" offset="1" :narrow-pc="{span:12, offset:6}">
-                <div class="demo"></div>
-            </v-col>
-            <!--<v-col span="24" :narrow-pc="{span:8}">-->
-                <!--<div class="demo">1</div>-->
-            <!--</v-col>-->
-            <!--<v-col span="24" :narrow-pc="{span:8}">-->
-                <!--<div class="demo">2</div>-->
-            <!--</v-col>-->
-            <!--<v-col span="24" :narrow-pc="{span:8}">-->
-                <!--<div class="demo">2</div>-->
-            <!--</v-col>-->
-        </v-row>
-
-    </div>
+    <v-layout>
+        <v-sider class="demo">sider</v-sider>
+        <v-layout>
+            <v-header class="demo">header</v-header>
+            <v-content class="demo">content</v-content>
+            <v-footer class="demo">footer</v-footer>
+        </v-layout>
+    </v-layout>
 </div>
 
 <script src="./src/app.js"></script>
