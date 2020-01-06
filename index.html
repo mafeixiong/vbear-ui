@@ -19,6 +19,9 @@
     body {
         font-size: var(--font-size);
     }
+    #app{
+        margin:50px;
+    }
 </style>
 <body>
 <style>
@@ -28,14 +31,7 @@
     }
 </style>
 <div id="app">
-    <v-layout>
-        <v-sider class="demo">sider</v-sider>
-        <v-layout>
-            <v-header class="demo">header</v-header>
-            <v-content class="demo">content</v-content>
-            <v-footer class="demo">footer</v-footer>
-        </v-layout>
-    </v-layout>
+    <v-button @click="showToast">显示toast</v-button>
 </div>
 
 <script src="./src/app.js"></script>
