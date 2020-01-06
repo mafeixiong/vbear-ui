@@ -40,7 +40,17 @@ new Vue({
             console.log(evn)
         },
         showToast() {
-            this.$toast('hello toast')
+            this.$toast('阿克苏京东卡健身打卡就是贷记卡接受的阿克苏京东卡健身打卡就是贷记卡接受的阿克苏京东' +
+                '卡健身打卡就是贷记卡接受的阿克苏京东卡健身打卡就是贷记卡接受的阿克苏京东卡健身打卡就是贷记卡接受的阿' +
+                '克苏京东卡健身打卡就是贷记卡接受的阿克苏京东卡健身打卡就是贷记卡接受的阿克苏京东卡健身打卡就是贷记卡接受的', {
+                enableHtml: false,
+                closeButton: {
+                    text: '已充值',
+                    callback (vm) {
+                        console.log('他说已经充值智商了')
+                    }
+                },
+            })
         }
     }
 })
