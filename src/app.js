@@ -39,11 +39,21 @@ new Vue({
         changeEvent(evn) {
             console.log(evn)
         },
-        showToast() {
+        showToast1() {
+            this.showToast('top')
+        },
+        showToast2() {
+            this.showToast('middle')
+        },
+        showToast3() {
+            this.showToast('bottom')
+        },
+        showToast(position) {
+            console.log(position)
             this.$toast('阿克苏京东卡健身打卡就是贷记卡接受的阿克苏京东卡健身打卡就是贷记卡接受的阿克苏京东' +
                 '卡健身打卡就是贷记卡接受的阿克苏京东卡健身打卡就是贷记卡接受的阿克苏京东卡健身打卡就是贷记卡接受的阿' +
                 '克苏京东卡健身打卡就是贷记卡接受的阿克苏京东卡健身打卡就是贷记卡接受的阿克苏京东卡健身打卡就是贷记卡接受的', {
-                position: 'top',
+                position,
                 enableHtml: false,
                 closeButton: {
                     text: '已充值',
