@@ -31,10 +31,18 @@
     }
 </style>
 <div id="app">
-    <v-button @click="showToast">显示toast</v-button>
-    <v-button @click="showToast1">top</v-button>
-    <v-button @click="showToast2">middle</v-button>
-    <v-button @click="showToast3">bottom</v-button>
+    <v-tabs :selected.sync="selectedTab">
+        <v-tabs-head>
+            <v-tabs-item name="news">新闻</v-tabs-item>
+            <v-tabs-item name="books">书籍</v-tabs-item>
+            <v-tabs-item name="sports">运动</v-tabs-item>
+        </v-tabs-head>
+        <v-tabs-body>
+            <v-tabs-pane name="books">书籍</v-tabs-pane>
+            <v-tabs-pane name="sports">运动</v-tabs-pane>
+            <v-tabs-pane name="news">新闻</v-tabs-pane>
+        </v-tabs-body>
+    </v-tabs>
 </div>
 
 <script src="./src/app.js"></script>

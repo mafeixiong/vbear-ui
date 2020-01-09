@@ -12,6 +12,11 @@ import Content from  './content'
 import Sider from  './sider'
 import Toast from  './toast'
 import plugin from './plugin'
+import Tabs from './tabs'
+import TabsHead from './tabs-head'
+import TabsBody from './tabs-body'
+import TabsItem from './tabs-item'
+import TabsPane from './tabs-pane'
 Vue.component('v-button', Button)
 Vue.component('v-button-group', ButtonGroup)
 Vue.component('v-icon', Icon)
@@ -25,12 +30,18 @@ Vue.component('v-content', Content)
 Vue.component('v-sider', Sider)
 Vue.component('v-toast', Toast)
 Vue.use(plugin)
+Vue.component('v-tabs', Tabs)
+Vue.component('v-tabs-head', TabsHead)
+Vue.component('v-tabs-body', TabsBody)
+Vue.component('v-tabs-item', TabsItem)
+Vue.component('v-tabs-pane', TabsPane)
 
 new Vue({
     el: '#app',
     data: {
         loading: false,
-        message: "双向绑定"
+        message: "双向绑定",
+        selectedTab: "books"
     },
     mounted() {
 
