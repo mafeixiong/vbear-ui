@@ -35,18 +35,21 @@ Vue.component('v-tabs-head', TabsHead)
 Vue.component('v-tabs-body', TabsBody)
 Vue.component('v-tabs-item', TabsItem)
 Vue.component('v-tabs-pane', TabsPane)
-
 new Vue({
     el: '#app',
     data: {
         loading: false,
         message: "双向绑定",
-        selectedTab: "books"
+        selectedTab: "news"
     },
     mounted() {
 
     },
     methods: {
+        yyy(data) {
+            console.log('yyy')
+            console.log(data)
+        },
         changeEvent(evn) {
             console.log(evn)
         },
