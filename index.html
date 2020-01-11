@@ -31,25 +31,25 @@
     }
 </style>
 <div id="app">
-    <v-button v-waves>按钮按钮按钮按钮按钮按钮按钮</v-button>
-    <v-tabs :selected.sync="selectedTab">
-        <v-tabs-head>
-            <template slot="actions">
-                <v-button>设置</v-button>
+    <div style="padding-top: 100px;padding-left:100px;border: 1px solid red;">
+        <v-popover @click="yyy">
+            <template slot="content">
+                popover
             </template>
-            <v-tabs-item name="news">
-                <v-icon name="download"></v-icon>
-                新闻
-            </v-tabs-item>
-            <v-tabs-item name="books" disabled>书籍</v-tabs-item>
-            <v-tabs-item name="sports">运动</v-tabs-item>
-        </v-tabs-head>
-        <v-tabs-body>
-            <v-tabs-pane name="books">书籍</v-tabs-pane>
-            <v-tabs-pane name="sports">运动</v-tabs-pane>
-            <v-tabs-pane name="news">新闻</v-tabs-pane>
-        </v-tabs-body>
-    </v-tabs>
+            <v-button>
+                按钮
+            </v-button>
+        </v-popover>
+        <v-popover>
+            <template slot="content">
+                popover
+            </template>
+            <v-button>
+                按钮
+            </v-button>
+        </v-popover>
+    </div>
+
 </div>
 
 <script src="./src/app.js"></script>
