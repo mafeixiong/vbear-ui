@@ -4,6 +4,7 @@
         <v-icon v-if="loading" class="loading" name="loading"></v-icon>
         <div class="content">
             <slot></slot>
+            <span class="cov-ripple"></span>
         </div>
     </button>
 </template>
@@ -51,4 +52,5 @@
     .loading {
         animation: spin 2s infinite linear;
     }
+
 </style>
