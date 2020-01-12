@@ -1,12 +1,12 @@
 <template>
-    <div class="v-popover" @click="onClick" ref="popover">
+    <div class="v-popover" ref="popover">
         <div ref="contentWrapper"
              class="content-wrapper"
              :class=`position-${position}`
              v-if="visible">
             <slot name="content"></slot>
         </div>
-        <span ref="triggerWrapper" style="display: inline-block">
+        <span ref="triggerWrapper" class="trigger">
             <slot></slot>
         </span>
     </div>
@@ -19,8 +19,15 @@
             position: {
                 type: String,
                 default: 'top',
-                validator (value) {
-                    return ['top','bottom','left','right'].indexOf(value) >= 0
+                validator(value) {
+                    return ['top', 'bottom', 'left', 'right'].indexOf(value) >= 0
+                }
+            },
+            trigger: {
+                type: String,
+                default: 'click',
+                validator(value) {
+                    return ['click', 'hover'].indexOf(value) >= 0
                 }
             }
         },
@@ -29,50 +36,75 @@
                 visible: false
             }
         },
+        mounted() {
+            if (this.trigger === 'click') {
+                this.$refs.popover.addEventListener('click', this.open)
+            } else {
+                this.$refs.popover.addEventListener('mouseenter', this.open)
+                this.$refs.popover.addEventListener('mouseleave', this.close)
+            }
+        },
+        destroyed() {
+            if (this.trigger === 'click') {
+                this.$refs.popover.removeEventListener('click', this.onClick)
+            } else {
+                this.$refs.popover.removeEventListener('mouseenter', this.open)
+                this.$refs.popover.removeEventListener('mouseleave', this.close)
+            }
+        },
         methods: {
-            positionContent () {
+            positionContent() {
                 document.body.appendChild(this.$refs.contentWrapper)
-                let {width, height, top, left} = this.$refs.triggerWrapper.getBoundingClientRect()
-                const {contentWrapper} = this.$refs
-                if (this.position === 'top') {
-                    contentWrapper.style.left = left + window.scrollX + 'px'
-                    contentWrapper.style.top = top + window.scrollY + 'px'
-                } else if (this.position === 'bottom') {
-                    contentWrapper.style.left = left + window.scrollX + 'px'
-                    contentWrapper.style.top = top + window.scrollY + 'px'
-                } else if (this.position === 'left') {
-                    contentWrapper.style.left = left + window.scrollX + 'px'
-                    let {height: height2} = contentWrapper.getBoundingClientRect()
-                    contentWrapper.style.top = top + window.scrollY +
-                        (height - height2) / 2 + 'px'
-                } else if (this.position === 'right') {
-                    contentWrapper.style.left = left + window.scrollX + width + 'px'
-                    let {height: height2} = contentWrapper.getBoundingClientRect()
-                    contentWrapper.style.top = top + window.scrollY +
-                        (height - height2) / 2 + 'px'
+                const {contentWrapper, triggerWrapper} = this.$refs
+                let {width, height, top, left} = triggerWrapper.getBoundingClientRect()
+                let {height: height2} = contentWrapper.getBoundingClientRect()
+                const position = {
+                    top: {
+                        left: left + window.scrollX,
+                        top: top + window.scrollY
+                    },
+                    bottom: {
+                        top: top + height + window.scrollY,
+                        left: left + window.scrollX
+                    },
+                    left: {
+                        left: left + window.scrollX,
+                        top: top + window.scrollY + (height - height2) / 2
+                    },
+                    right: {
+                        left: left + window.scrollX + width,
+                        top: top + window.scrollY + (height - height2) / 2
+                    },
+
                 }
+                contentWrapper.style.left = position[this.position].left + 'px'
+                contentWrapper.style.top = position[this.position].top + 'px'
             },
-            onClickDocument (e) {
+            onClickDocument(e) {
                 if (this.$refs.popover &&
                     (this.$refs.popover === e.target || this.$refs.popover.contains(e.target))
-                ) { return }
+                ) {
+                    return
+                }
                 if (this.$refs.contentWrapper &&
                     (this.$refs.contentWrapper === e.target || this.$refs.contentWrapper.contains(e.target))
-                ) { return }
+                ) {
+                    return
+                }
                 this.close()
             },
-            open () {
+            open() {
                 this.visible = true
                 this.$nextTick(() => {
                     this.positionContent()
                     document.addEventListener('click', this.onClickDocument)
                 })
             },
-            close () {
+            close() {
                 this.visible = false
                 document.removeEventListener('click', this.onClickDocument)
             },
-            onClick (event) {
+            onClick(event) {
                 if (this.$refs.triggerWrapper.contains(event.target)) {
                     if (this.visible === true) {
                         this.close()
@@ -88,7 +120,7 @@
 <style lang="scss" scoped>
     $border-color: #333;
     $border-radius: 4px;
-    .popover {
+    .v-popover {
         display: inline-block;
         vertical-align: top;
         position: relative;
@@ -170,5 +202,8 @@
                 right: calc(100% - 1px);
             }
         }
+    }
+    .trigger {
+        display: inline-block;
     }
 </style>
