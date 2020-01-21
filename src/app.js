@@ -46,7 +46,7 @@ new Vue({
     data: {
         loading: false,
         message: "双向绑定",
-        selectedTab: "news"
+        selectedTab: ['3']
     },
     mounted() {
 
