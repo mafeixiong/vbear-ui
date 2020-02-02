@@ -14,4 +14,5 @@ git add -A
 git commit -m 'deploy'
 
 git push -f git@github.com:mafeixiong/vbear-ui.git master:vbear-pages
+
 cd -
