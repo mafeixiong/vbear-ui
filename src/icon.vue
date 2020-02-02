@@ -12,5 +12,6 @@
 
 </script>
 <style lang="scss">
+    @import "var";
     .v-icon { width: 1em; height: 1em}
 </style>
