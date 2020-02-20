@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import './svg'
 import Button from './button'
 import ButtonGroup from './button-group'
 import Icon from './icon'
@@ -20,68 +21,68 @@ import TabsPane from './tabs-pane'
 import Popover from './popover'
 import Collapse from './collapse'
 import CollapseItem from './collapse-item'
+Vue.component('v-icon', Icon)
 Vue.component('v-button', Button)
 Vue.component('v-button-group', ButtonGroup)
-Vue.component('v-icon', Icon)
-Vue.component('v-input', Input)
-Vue.component('v-row', Row)
 Vue.component('v-col', Col)
-Vue.component('v-layout', Layout)
-Vue.component('v-header', Header)
-Vue.component('v-footer', Footer)
-Vue.component('v-content', Content)
-Vue.component('v-sider', Sider)
-Vue.component('v-toast', Toast)
-Vue.use(plugin)
-Vue.component('v-tabs', Tabs)
-Vue.component('v-tabs-head', TabsHead)
-Vue.component('v-tabs-body', TabsBody)
-Vue.component('v-tabs-item', TabsItem)
-Vue.component('v-tabs-pane', TabsPane)
-Vue.component('v-popover', Popover)
 Vue.component('v-collapse', Collapse)
 Vue.component('v-collapse-item', CollapseItem)
+Vue.component('v-content', Content)
+Vue.component('v-footer', Footer)
+Vue.component('v-header', Header)
+Vue.component('v-input', Input)
+Vue.component('v-layout', Layout)
+Vue.component('v-popover', Popover)
+Vue.component('v-row', Row)
+Vue.component('v-sider', Sider)
+Vue.component('v-tabs', Tabs)
+Vue.component('v-tabs-body', TabsBody)
+Vue.component('v-tabs-head', TabsHead)
+Vue.component('v-tabs-item', TabsItem)
+Vue.component('v-tabs-pane', TabsPane)
+Vue.component('v-toast', Toast)
+Vue.use(plugin)
 new Vue({
     el: '#app',
     data: {
-        loading: false,
-        message: "双向绑定",
-        selectedTab: ['3']
+        // loading: false,
+        // message: "双向绑定",
+        // selectedTab: ['3']
     },
     mounted() {
 
     },
     methods: {
-        yyy() {
-            console.log('yyy')
-        },
-        changeEvent(evn) {
-            console.log(evn)
-        },
-        showToast1() {
-            this.showToast('top')
-        },
-        showToast2() {
-            this.showToast('middle')
-        },
-        showToast3() {
-            this.showToast('bottom')
-        },
-        showToast(position) {
-            console.log(position)
-            this.$toast('阿克苏京东卡健身打卡就是贷记卡接受的阿克苏京东卡健身打卡就是贷记卡接受的阿克苏京东' +
-                '卡健身打卡就是贷记卡接受的阿克苏京东卡健身打卡就是贷记卡接受的阿克苏京东卡健身打卡就是贷记卡接受的阿' +
-                '克苏京东卡健身打卡就是贷记卡接受的阿克苏京东卡健身打卡就是贷记卡接受的阿克苏京东卡健身打卡就是贷记卡接受的', {
-                position,
-                enableHtml: false,
-                closeButton: {
-                    text: '已充值',
-                    callback (vm) {
-                        console.log('他说已经充值智商了')
-                    }
-                },
-            })
-        }
+        // yyy() {
+        //     console.log('yyy')
+        // },
+        // changeEvent(evn) {
+        //     console.log(evn)
+        // },
+        // showToast1() {
+        //     this.showToast('top')
+        // },
+        // showToast2() {
+        //     this.showToast('middle')
+        // },
+        // showToast3() {
+        //     this.showToast('bottom')
+        // },
+        // showToast(position) {
+        //     console.log(position)
+        //     this.$toast('阿克苏京东卡健身打卡就是贷记卡接受的阿克苏京东卡健身打卡就是贷记卡接受的阿克苏京东' +
+        //         '卡健身打卡就是贷记卡接受的阿克苏京东卡健身打卡就是贷记卡接受的阿克苏京东卡健身打卡就是贷记卡接受的阿' +
+        //         '克苏京东卡健身打卡就是贷记卡接受的阿克苏京东卡健身打卡就是贷记卡接受的阿克苏京东卡健身打卡就是贷记卡接受的', {
+        //         position,
+        //         enableHtml: false,
+        //         closeButton: {
+        //             text: '已充值',
+        //             callback (vm) {
+        //                 console.log('他说已经充值智商了')
+        //             }
+        //         },
+        //     })
+        // }
     }
 })
 
