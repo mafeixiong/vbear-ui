@@ -21,6 +21,8 @@ import TabsPane from './tabs-pane'
 import Popover from './popover'
 import Collapse from './collapse'
 import CollapseItem from './collapse-item'
+import Cascader from './cascader'
+import CascaderItems from './cascader-items'
 Vue.component('v-icon', Icon)
 Vue.component('v-button', Button)
 Vue.component('v-button-group', ButtonGroup)
@@ -41,6 +43,8 @@ Vue.component('v-tabs-head', TabsHead)
 Vue.component('v-tabs-item', TabsItem)
 Vue.component('v-tabs-pane', TabsPane)
 Vue.component('v-toast', Toast)
+Vue.component('v-cascader', Cascader)
+Vue.component('v-CascaderItems', CascaderItems)
 Vue.use(plugin)
 new Vue({
     el: '#app',
@@ -48,6 +52,51 @@ new Vue({
         // loading: false,
         // message: "双向绑定",
         // selectedTab: ['3']
+        source: [{
+            name: '湖南',
+            children: [
+                {
+                    name: '长沙',
+                    children: [
+                        {name: '芙蓉'},
+                        {name: '天心'},
+                        {name: '岳麓'},
+                    ]
+                },
+            ]
+        },{
+            name: '浙江',
+            children: [
+                {
+                    name: '杭州',
+                    children: [
+                        {name: '上城'},
+                        {name: '下城'},
+                        {name: '江干'},
+                    ]
+                },
+                {
+                    name: '嘉兴',
+                    children: [
+                        {name: '南湖'},
+                        {name: '秀洲'},
+                        {name: '嘉善'},
+                    ]
+                },
+            ]
+        }, {
+            name: '福建',
+            children: [
+                {
+                    name: '福州',
+                    children: [
+                        {name: '鼓楼'},
+                        {name: '台江'},
+                        {name: '仓山'},
+                    ]
+                },
+            ]
+        }]
     },
     mounted() {
 
