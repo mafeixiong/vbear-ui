@@ -44,7 +44,6 @@ Vue.component('v-tabs-item', TabsItem)
 Vue.component('v-tabs-pane', TabsPane)
 Vue.component('v-toast', Toast)
 Vue.component('v-cascader', Cascader)
-Vue.component('v-CascaderItems', CascaderItems)
 Vue.use(plugin)
 new Vue({
     el: '#app',
