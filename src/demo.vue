@@ -1,8 +1,7 @@
 <template>
     <div>
-        <p>11111</p>
-        <v-cascader :source="source" popover-height="200px"></v-cascader>
-        <p>22222</p>
+        <!--<p>{{selected}}</p>-->
+        <v-cascader :source="source" :selected="selected" @update:selected="selected = $event" popover-height="200px"></v-cascader>
     </div>
 </template>
 
@@ -17,6 +16,7 @@
         },
         data() {
             return {
+                selected: [],
                 source: [{
                     name: '湖南',
                     children: [

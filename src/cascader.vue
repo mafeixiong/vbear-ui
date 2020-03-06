@@ -1,16 +1,17 @@
 <template>
     <div class="cascader">
         <div class="trigger" @click="popoverVisible = !popoverVisible">
-            <slot></slot>
+            {{result || '&nbsp;'}}
         </div>
         <div class="popover-wrapper" v-if="popoverVisible">
-                <cascader-items :items="source" :height="popoverHeight"></cascader-items>
+            <cascader-items :items="source" :selected="selected" :height="popoverHeight" @update:selected="onUpdateSelected"></cascader-items>
         </div>
     </div>
 </template>
 
 <script>
     import CascaderItems from './cascader-items'
+
     export default {
         name: "vCascader",
         components: {CascaderItems},
@@ -20,11 +21,25 @@
             },
             popoverHeight: {
                 type: String
+            },
+            selected: {
+                type: Array,
+                default: []
             }
         },
         data() {
             return {
                 popoverVisible: false
+            }
+        },
+        computed: {
+            result() {
+                return this.selected.map(item => item.name).join('/')
+            }
+        },
+        methods: {
+            onUpdateSelected(item) {
+                this.$emit('update:selected', item)
             }
         }
     }
@@ -35,12 +50,17 @@
     .cascader {
         position: relative;
         .trigger {
-            height: 32px;
-            width: 100px;
-            border: 1px solid black;
+            height: $input-height;
+            display: inline-flex;
+            align-items: center;
+            padding: 0 1em;
+            min-width: 10em;
+            border: 1px solid $border-color;
+            border-radius: $border-radius;
         }
         .popover-wrapper {
             position: absolute; top: 100%; left: 0; background: white; display: flex;
+            margin-top: 8px;
             @extend .box-shadow;
         }
     }
