@@ -3,7 +3,7 @@
         <div class="left">
             <div class="label" v-for="item in items" @click="onClickLabel(item)">
                 <span class="name">{{item.name}}</span>
-                <icon class="icon" v-if="rightArrowVisible(item)" icon="right"></icon>
+                <v-icon class="icon" v-if="rightArrowVisible(item)" icon="v-right"></v-icon>
             </div>
         </div>
         <div class="right" v-if="rightItems">
@@ -11,66 +11,63 @@
                              :level="level + 1"
                              @update:selected="onUpdateSelected"></v-cascader-item>
         </div>
-
     </div>
 </template>
 
 <script>
-    import Icon from './icon'
 
-    export default {
-        name: "vCascaderItem",
-        components: {Icon},
-        props: {
-            items: {
-                type: Array
-            },
-            height: {
-                type: String
-            },
-            selected: {
-                type: Array,
-                default: []
-            },
-            level: {
-                type: Number,
-                default: 0
-            },
-            loadData: {
-                type: Function
-            }
-        },
-        data() {
-            return {
-                leftSelected: null
-            }
-        },
-        computed: {
-            rightItems() {
-                if(this.selected[this.level]) {
-                    let selected = this.items.filter(item => item.name == this.selected[this.level].name)
-                    if (selected && selected[0].children && selected[0].children.length > 0) {
-                        return selected[0].children
-                    }
-                }
-            },
-
-        },
-        methods: {
-            onClickLabel(item) {
-                let copy = JSON.parse(JSON.stringify(this.selected))
-                copy[this.level] = item
-                copy.splice(this.level + 1)
-                this.$emit('update:selected', copy)
-            },
-            rightArrowVisible (item) {
-                return this.loadData ? !item.isLeaf : item.children
-            },
-            onUpdateSelected(item) {
-                this.$emit('update:selected', item)
-            }
+  export default {
+    name: 'vCascaderItem',
+    props: {
+      items: {
+        type: Array,
+      },
+      height: {
+        type: String,
+      },
+      selected: {
+        type: Array,
+        default: [],
+      },
+      level: {
+        type: Number,
+        default: 0,
+      },
+      loadData: {
+        type: Function,
+      },
+    },
+    data () {
+      return {
+        leftSelected: null,
+      }
+    },
+    computed: {
+      rightItems () {
+        if (this.selected[this.level]) {
+          let selected = this.items.filter(item => item.name == this.selected[this.level].name)
+          if (selected && selected[0].children && selected[0].children.length > 0) {
+            return selected[0].children
+          }
         }
-    }
+      },
+
+    },
+    methods: {
+      onClickLabel (item) {
+        let copy = JSON.parse(JSON.stringify(this.selected))
+        copy[this.level] = item
+        copy.splice(this.level + 1)
+        this.$emit('update:selected', copy)
+      },
+      rightArrowVisible (item) {
+        return this.loadData ? !item.isLeaf : item.children
+      },
+      onUpdateSelected (item) {
+        this.$emit('update:selected', item)
+      },
+    },
+  }
 </script>
 
 <style scoped lang="scss">
@@ -93,6 +90,7 @@
             display: flex;
             align-items: center;
             cursor: pointer;
+            white-space: nowrap;
             &:hover {
                 background: $grey;
             }
