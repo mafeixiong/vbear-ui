@@ -1,10 +1,13 @@
 <template>
-    <div class="cascader" ref="cascader">
+    <div class="cascader" ref="cascader" v-click-outside="close">
         <div class="trigger" @click="toggle">
             {{result || '&nbsp;'}}
         </div>
         <div class="popover-wrapper" v-if="popoverVisible">
-            <cascader-items :items="source" :selected="selected" :loadData="loadData" :height="popoverHeight"
+            <cascader-items :items="source" :selected="selected"
+                            :loading-item="loadingItem"
+                            :loadData="loadData"
+                            :height="popoverHeight"
                             @update:selected="onUpdateSelected"></cascader-items>
         </div>
     </div>
@@ -12,9 +15,11 @@
 
 <script>
   import CascaderItems from './cascader-items'
+  import ClickOutside from '../directives/click-outside'
 
   export default {
     name: 'vCascader',
+    directives: {ClickOutside},
     components: {CascaderItems},
     props: {
       source: {
@@ -34,6 +39,7 @@
     data () {
       return {
         popoverVisible: false,
+        loadingItem: {},
       }
     },
     computed: {
@@ -42,24 +48,11 @@
       },
     },
     methods: {
-      onDocumentClick (e) {
-        let {cascader} = this.$refs
-        if (cascader.contains(e.target)) {
-          return
-        }
-        this.close()
-      },
       close () {
         this.popoverVisible = false
-        this.$nextTick(() => {
-          document.addEventListener('click', this.onDocumentClick)
-        })
       },
       open () {
         this.popoverVisible = true
-        this.$nextTick(() => {
-          document.addEventListener('click', this.onDocumentClick)
-        })
       },
       toggle () {
         if (this.popoverVisible) {
@@ -108,13 +101,15 @@
 
         }
         let updateSource = (result) => {
+          this.loadingItem = {}
           let copy = JSON.parse(JSON.stringify(this.source))
           let toUpdate = complex(copy, lastItem.id)
           toUpdate.children = result
           this.$emit('update:source', copy)
         }
-        if (!lastItem.isLeaf) { // 没有叶子节点再加载数据
+        if (!lastItem.isLeaf && this.loadData) { // 没有叶子节点再加载数据
           this.loadData(lastItem, updateSource)
+          this.loadingItem = lastItem
         }
 
       },
@@ -122,8 +117,8 @@
   }
 </script>
 
-<style scoped lang="scss">
-    @import "var";
+<style scoped lang="scss" type="text/scss">
+    @import "../styles/var";
 
     .cascader {
         display: inline-block;
@@ -145,6 +140,7 @@
             background: white;
             display: flex;
             margin-top: 8px;
+            z-index: 1;
             @extend .box-shadow;
         }
     }

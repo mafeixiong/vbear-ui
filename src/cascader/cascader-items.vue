@@ -3,11 +3,20 @@
         <div class="left">
             <div class="label" v-for="item in items" @click="onClickLabel(item)">
                 <span class="name">{{item.name}}</span>
-                <v-icon class="icon" v-if="rightArrowVisible(item)" icon="v-right"></v-icon>
+                <span class="icons">
+                    <template v-if="item.name === loadingItem.name">
+                        <v-icon class="icon" icon="v-loading"></v-icon>
+                    </template>
+                    <template>
+                        <v-icon class="next" v-if="rightArrowVisible(item)" icon="v-right"></v-icon>
+                    </template>
+                </span>
             </div>
         </div>
         <div class="right" v-if="rightItems">
-            <v-cascader-item :items="rightItems" :selected="selected" :height="height"
+            <v-cascader-item :items="rightItems" :selected="selected"
+                             :loading-item="loadingItem"
+                             :height="height"
                              :level="level + 1"
                              @update:selected="onUpdateSelected"></v-cascader-item>
         </div>
@@ -25,6 +34,10 @@
       height: {
         type: String,
       },
+      loadingItem: {
+        type: Object,
+        default: {}
+      },
       selected: {
         type: Array,
         default: [],
@@ -39,7 +52,7 @@
     },
     data () {
       return {
-        leftSelected: null,
+        leftSelected: null
       }
     },
     computed: {
@@ -70,8 +83,8 @@
   }
 </script>
 
-<style scoped lang="scss">
-    @import "var";
+<style scoped lang="scss" type="text/scss">
+    @import "../styles/var";
     .cascaderItem {
         display: flex;
         align-items: flex-start;
@@ -98,9 +111,14 @@
                 margin-right: 1em;
                 user-select: none;
             }
-            .icon {
+            .icons {
                 margin-left: auto;
-                transform: scale(0.5);
+                .next {
+                    transform: scale(0.5);
+                }
+                .loading {
+                    animation: spin 2s infinite linear;
+                }
             }
         }
     }

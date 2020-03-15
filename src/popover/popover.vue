@@ -117,7 +117,7 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" type="text/scss" scoped>
     $border-color: #333;
     $border-radius: 4px;
     .v-popover {

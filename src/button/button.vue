@@ -27,9 +27,8 @@
     },
   }
 </script>
-<style lang="scss">
+<style lang="scss" type="text/scss">
     @import "var";
-
     @keyframes spin {
         0% {
             transform: rotate(0deg);

@@ -7,16 +7,19 @@
                     :selected.sync="selected"
                     @update:source="onUpdateSource"
                     @update:selected="onUpdateSelected"></v-cascader>
+        <!--test-->
         <!--<v-icon icon="v-loading" class-name="reset"></v-icon>-->
-        <!--<v-button iconPosition="right" :loading="true">按钮</v-button>-->
+        <v-button @click="showToast">按钮</v-button>
+        <v-input error="错误！"></v-input>
     </div>
 </template>
 
 <script>
-  import './icons'
-  import Button from './button'
-  import Cascader from './cascader'
-  import db from './db'
+  import './icon/index'
+  import Button from './button/button'
+  import Input from './input/input'
+  import Cascader from './cascader/cascader'
+  import db from './tests/fixtures/db'
 
   function ajax (parentId = 0) {
     return new Promise((resolve, reject) => {
@@ -30,7 +33,7 @@
           }
         })
         resolve(result)
-      }, 300)
+      }, 1000)
     })
   }
 
@@ -38,6 +41,7 @@
     name: 'demo',
     components: {
       'v-button': Button,
+      'v-input': Input,
       'v-cascader': Cascader,
     },
     data () {
@@ -56,6 +60,20 @@
       loadData ({id}, updateSource) {
         ajax(id).then(result => {
           updateSource(result) // 回调:把别人传给我的函数调用一下
+        })
+      },
+      showToast () {
+        this.$toast('阿克苏京东卡健身打卡就是贷记卡接受的阿克苏京东卡健身打卡就是贷记卡接受的阿克苏京东' +
+          '卡健身打卡就是贷记卡接受的阿克苏京东卡健身打卡就是贷记卡接受的阿克苏京东卡健身打卡就是贷记卡接受的阿' +
+          '克苏京东卡健身打卡就是贷记卡接受的阿克苏京东卡健身打卡就是贷记卡接受的阿克苏京东卡健身打卡就是贷记卡接受的', {
+//          position,
+          enableHtml: false,
+          closeButton: {
+            text: '已充值',
+            callback (vm) {
+              console.log('他说已经充值智商了')
+            },
+          },
         })
       },
       onUpdateSource (item) {
