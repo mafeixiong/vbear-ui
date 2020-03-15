@@ -15,7 +15,7 @@
 
 <script>
   import CascaderItems from './cascader-items'
-  import ClickOutside from './click-outside'
+  import ClickOutside from '../directives/click-outside'
 
   export default {
     name: 'vCascader',
@@ -118,7 +118,7 @@
 </script>
 
 <style scoped lang="scss" type="text/scss">
-    @import "var";
+    @import "../styles/var";
 
     .cascader {
         display: inline-block;

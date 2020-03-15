@@ -6,17 +6,15 @@
             @focus="$emit('focus', $event.target.value)"
             @blur="$emit('blur', $event.target.value)">
         <template v-if="error">
-            <icon name="error" class="icon-error"></icon>
+            <v-icon icon="v-error" class="icon-error"></v-icon>
             <span class="errorMessage">{{error}}</span>
         </template>
     </div>
 </template>
 
 <script>
-    import Icon from './icon'
     export default {
         name: "vInput",
-        components: { Icon },
         props: {
             value: {
                 type: String
