@@ -7,16 +7,19 @@
 
 </template>
 <script>
-    export default {
-        name: "vIcon",
-        props: {
-            icon: {
-                type: String
-            }
-        }
-    }
+  export default {
+    name: 'vIcon',
+    props: {
+      icon: {
+        type: String,
+      },
+    },
+  }
 
 </script>
 <style lang="scss">
-    .v-icon { width: 1em; height: 1em }
+    .v-icon {
+        width: 1em;
+        height: 1em
+    }
 </style>

@@ -7,13 +7,13 @@
                     :selected.sync="selected"
                     @update:source="onUpdateSource"
                     @update:selected="onUpdateSelected"></v-cascader>
+        <!--test-->
         <!--<v-icon icon="v-loading" class-name="reset"></v-icon>-->
-        <!--<v-button iconPosition="right" :loading="true">按钮</v-button>-->
     </div>
 </template>
 
 <script>
-  import './icons'
+  import './icon/index'
   import Button from './button'
   import Cascader from './cascader'
   import db from './db'
