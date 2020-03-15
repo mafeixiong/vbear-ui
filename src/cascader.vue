@@ -4,7 +4,10 @@
             {{result || '&nbsp;'}}
         </div>
         <div class="popover-wrapper" v-if="popoverVisible">
-            <cascader-items :items="source" :selected="selected" :loadData="loadData" :height="popoverHeight"
+            <cascader-items :items="source" :selected="selected"
+                            :loading-item="loadingItem"
+                            :loadData="loadData"
+                            :height="popoverHeight"
                             @update:selected="onUpdateSelected"></cascader-items>
         </div>
     </div>
@@ -36,6 +39,7 @@
     data () {
       return {
         popoverVisible: false,
+        loadingItem: {},
       }
     },
     computed: {
@@ -97,13 +101,15 @@
 
         }
         let updateSource = (result) => {
+          this.loadingItem = {}
           let copy = JSON.parse(JSON.stringify(this.source))
           let toUpdate = complex(copy, lastItem.id)
           toUpdate.children = result
           this.$emit('update:source', copy)
         }
-        if (!lastItem.isLeaf) { // 没有叶子节点再加载数据
+        if (!lastItem.isLeaf && this.loadData) { // 没有叶子节点再加载数据
           this.loadData(lastItem, updateSource)
+          this.loadingItem = lastItem
         }
 
       },
@@ -134,6 +140,7 @@
             background: white;
             display: flex;
             margin-top: 8px;
+            z-index: 1;
             @extend .box-shadow;
         }
     }
