@@ -22,7 +22,7 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" type="text/scss" scoped>
     $tab-height: 40px;
     $blue: blue;
     $border-color: #ddd;

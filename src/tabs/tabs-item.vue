@@ -49,7 +49,7 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" type="text/scss" scoped>
     $blue: blue;
     $disabled-text-color: grey;
     .tabs-item {

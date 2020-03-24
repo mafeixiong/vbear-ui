@@ -21,11 +21,11 @@
     </div>
 </template>
 <script>
-    import Tabs from '../../../src/tabs.vue'
-    import TabsHead from '../../../src/tabs-head.vue'
-    import TabsBody from '../../../src/tabs-body.vue'
-    import TabsItem from '../../../src/tabs-item.vue'
-    import TabsPane from '../../../src/tabs-pane.vue'
+    import Tabs from '../../../src/tabs/tabs.vue'
+    import TabsHead from '../../../src/tabs/tabs-head.vue'
+    import TabsBody from '../../../src/tabs/tabs-body.vue'
+    import TabsItem from '../../../src/tabs/tabs-item.vue'
+    import TabsPane from '../../../src/tabs/tabs-pane.vue'
     export default {
         components: {
             'v-tabs': Tabs,

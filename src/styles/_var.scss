@@ -1,3 +1,18 @@
+//button color
+$black-color: #000000 !default;
+$default-color: #606266 !default;
+$primary-color: #409EFF !default;
+$success-color: #67C23A !default;
+$warning-color: #E6A23C !default;
+$danger-color: #F56C6C !default;
+$info-color: #909399 !default;
+
+//text color
+$color-text-primary: #303133 !default; // 主要文字颜色
+$color-text-regular: #606266 !default; // 常规文字颜色
+$color-text-secondary: #909399 !default; // 次要文字颜色
+$color-text-placeholder: #C0C4CC !default; // 占位文字颜色
+
 $border-color-hover: #666;
 $border-color: #999;
 $border-color-light: lighten($border-color, 28%);
@@ -5,7 +20,7 @@ $border-radius: 4px;
 $box-shadow-color: rgba(0, 0, 0, 0.5);
 $button-active-bg: #eee;
 $button-bg: white;
-$button-height: 32px;
+$button-height: 40px;
 $color: #333;
 $font-size: 14px;
 $input-height: 32px;
@@ -13,8 +28,4 @@ $red: #F1453D;
 $grey: #eee;
 .box-shadow {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-}
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
 }
