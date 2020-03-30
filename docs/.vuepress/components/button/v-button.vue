@@ -9,6 +9,14 @@
             <v-button type="danger">危险按钮</v-button>
         </v-row>
         <v-row>
+            <v-button round plain>默认按钮</v-button>
+            <v-button type="primary" round plain>主要按钮</v-button>
+            <v-button type="success" round plain>成功按钮</v-button>
+            <v-button type="info" round plain>信息按钮</v-button>
+            <v-button type="warning" round plain>警告按钮</v-button>
+            <v-button type="danger" round plain>危险按钮</v-button>
+        </v-row>
+        <v-row>
             <v-button round>默认按钮</v-button>
             <v-button type="primary" round>主要按钮</v-button>
             <v-button type="success" round>成功按钮</v-button>
@@ -27,14 +35,14 @@
     </div>
 </template>
 <script>
-  import '../public/svg.js'
-  import '../../../src/icon/index'
-  import Button from '../../../src/button/button'
-  import vRow from '../../../src/grid/row'
+  import '../../public/svg.js'
+  import '../../../../src/icon/index'
+  import vButton from '../../../../src/button/button'
+  import vRow from '../../../../src/grid/row'
 
   export default {
     components: {
-      'v-button': Button,
+      'v-button': vButton,
       'v-row': vRow,
     },
   }

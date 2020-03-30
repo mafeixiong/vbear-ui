@@ -1,7 +1,7 @@
 {
   "name": "vbear-ui",
   "version": "0.1.5",
-  "main": "./dist/vbear-ui.umd.min.js",
+  "main": "dist/index.js",
   "description": "这个一个ui框架",
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -10,10 +10,11 @@
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs"
   },
-  "main": "dist/index.js",
   "dependencies": {
     "core-js": "^3.6.4",
-    "vue": "^2.6.11"
+    "highlight.js": "^9.18.1",
+    "vue": "^2.6.11",
+    "vue-highlight.js": "^2.2.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.1.0",

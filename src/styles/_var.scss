@@ -13,11 +13,16 @@ $color-text-regular: #606266 !default; // 常规文字颜色
 $color-text-secondary: #909399 !default; // 次要文字颜色
 $color-text-placeholder: #C0C4CC !default; // 占位文字颜色
 
-$border-color-hover: #666;
-$border-color: #999;
+//border color
+$border-color-hover: #c0c4cc;
+$border-color-focus: #409eff;
+$border-color-error: #f56c6c;
+$border-text-error: #f56c6c;
+$border-color: #dcdfe6;
 $border-color-light: lighten($border-color, 28%);
 $border-radius: 4px;
 $box-shadow-color: rgba(0, 0, 0, 0.5);
+
 $button-active-bg: #eee;
 $button-bg: white;
 $button-height: 40px;

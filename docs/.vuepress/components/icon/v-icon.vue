@@ -8,20 +8,39 @@
                 </span>
             </li>
         </ul>
+
     </div>
 </template>
 
 <script>
-  import '../public/svg.js'
-  import '../../../src/icon/index'
+  import '../../public/svg.js'
+  import '../../../../src/icon/index'
+  import vButton from '../../../../src/button/button'
 
   export default {
     name: 'icon',
     data () {
       return {
-        iconList: ['loading', 'error', 'settings', 'thumbs-up', 'download', 'up', 'down', 'left', 'right'],
+        iconList: [
+          'loading',
+          'error',
+          'settings',
+          'thumbs-up',
+          'download',
+          'up',
+          'down',
+          'left',
+          'right',
+          'user',
+          'edit',
+          'delete',
+          'search',
+          'share'],
       }
     },
+    components: {
+      vButton
+    }
   }
 </script>
 
@@ -31,20 +50,15 @@
         overflow: hidden;
         list-style: none;
         padding: 0 !important;
-        border: 1px solid #eaeefb;
         border-radius: 4px;
 
         li {
             float: left;
             width: 16.66%;
             text-align: center;
-            padding: 50px 0;
+            padding: 20px 0;
             color: #666;
             font-size: 13px;
-            border-right: 1px solid #eee;
-            border-bottom: 1px solid #eee;
-            margin-right: -1px;
-            margin-bottom: -1px;
 
             &:hover {
                 color: #5cb6ff;
