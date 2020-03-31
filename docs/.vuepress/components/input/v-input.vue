@@ -20,9 +20,9 @@
 
 <script>
   import '../../public/svg.js'
-  import '../../../src/icon/index'
-  import vInput from '../../../src/input/input'
-  import vRow from '../../../src/grid/row'
+  import '../../../../src/icon/index'
+  import vInput from '../../../../src/input/input'
+  import vRow from '../../../../src/grid/row'
   export default {
     name: 'input-demos',
     components: {

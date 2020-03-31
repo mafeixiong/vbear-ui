@@ -6,5 +6,5 @@ sidebarDepth: 2
 
 使用方法
 <ClientOnly>
-  <input-demos/>
+  <input-v-input/>
 </ClientOnly>

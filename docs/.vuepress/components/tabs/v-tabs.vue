@@ -22,12 +22,12 @@
 </template>
 <script>
   import '../../../../src/icon'
-  import Tabs from '../../../src/tabs/tabs.vue'
-  import vButton from '../../../src/button/button'
-  import TabsHead from '../../../src/tabs/tabs-head.vue'
-  import TabsBody from '../../../src/tabs/tabs-body.vue'
-  import TabsItem from '../../../src/tabs/tabs-item.vue'
-  import TabsPane from '../../../src/tabs/tabs-pane.vue'
+  import Tabs from '../../../../src/tabs/tabs.vue'
+  import vButton from '../../../../src/button/button'
+  import TabsHead from '../../../../src/tabs/tabs-head.vue'
+  import TabsBody from '../../../../src/tabs/tabs-body.vue'
+  import TabsItem from '../../../../src/tabs/tabs-item.vue'
+  import TabsPane from '../../../../src/tabs/tabs-pane.vue'
 
   export default {
     components: {

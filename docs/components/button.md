@@ -112,7 +112,7 @@ sidebarDepth: 2
         圆形按钮
       </header>
       <p class="v-description-text">
-        属性<span class="add-color">circle</span>指定<span class="add-color">图标按钮</span>为圆形按钮。
+        属性<span class="add-color">circle</span>指定为圆形按钮。
       </p>
    </div>
 

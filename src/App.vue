@@ -32,6 +32,12 @@
             <v-button plain type="warning">警告按钮</v-button>
             <v-button plain type="danger">危险按钮</v-button>
         </div>
+        <v-popover position="right">
+            <template slot="content">
+                <div>popover内容</div>
+            </template>
+            <v-button>点我</v-button>
+        </v-popover>
     </div>
 </template>
 
@@ -40,6 +46,7 @@
   import Button from './button/button'
   import Input from './input/input'
   import vRow from './grid/row'
+  import vPopover from './popover/popover'
 
   export default {
     name: 'demo',
@@ -47,6 +54,7 @@
       'v-button': Button,
       'v-input': Input,
       'v-row': vRow,
+      vPopover
     },
     data () {
       return {

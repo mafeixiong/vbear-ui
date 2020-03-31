@@ -144,7 +144,7 @@
 
                         .v-show-component {
                             // border: 1px solid red;
-                            padding: 16px 0;
+                            padding: 16px;
                         }
                     }
 

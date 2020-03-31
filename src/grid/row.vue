@@ -1,54 +1,56 @@
 <template>
-    <div class="row" :style="rowStyle" :class="rowClass">
+    <div class="v-row" :style="rowStyle" :class="rowClass">
         <slot></slot>
     </div>
 </template>
 <script>
-    export default {
-        name: 'vRow',
-        props: {
-            gutter: {
-                type: [Number, String]
-            },
-            align: {
-                type: String,
-                validator (value) {
-                    return ['left', 'right', 'center'].includes(value)
-                }
-            }
+  export default {
+    name: 'vRow',
+    props: {
+      gutter: {
+        type: [Number, String],
+      },
+      justify: {
+        type: [String],
+        validator (value) {
+          return ['end', 'center', 'around', 'between'].indexOf(value) > -1
         },
-        computed: {
-            rowStyle() {
-                let {gutter} = this
-                return {
-                    marginLeft: -gutter / 2 + 'px',
-                    marginRight: -gutter / 2 + 'px'
-                }
-            },
-            rowClass () {
-                let {align} = this
-                return [align && `align-${align}`]
-            }
-        },
-        mounted() {
-            this.$children.forEach((vm) => {
-                vm.gutter = this.gutter
-            })
+      },
+    },
+    computed: {
+      rowStyle () {
+        let {gutter} = this
+        return {
+          marginLeft: -gutter / 2 + 'px',
+          marginRight: -gutter / 2 + 'px',
         }
-    }
+      },
+      rowClass () {
+        let {justify} = this
+        return [justify && `v-row-${justify}`]
+      },
+    },
+    mounted () {
+      this.$children.forEach((vm) => {
+        vm.gutter = this.gutter
+      })
+    },
+  }
 </script>
 <style scoped lang="scss">
-    .row {
+    .v-row{
         display: flex;
-        flex-wrap: wrap;
-        &.align-left {
-            justify-content: flex-start;
-        }
-        &.align-right {
+        &.v-row-end{
             justify-content: flex-end;
         }
-        &.align-center {
+        &.v-row-center{
             justify-content: center;
+        }
+        &.v-row-around{
+            justify-content: space-around;
+        }
+        &.v-row-between{
+            justify-content: space-between;
         }
     }
 </style>

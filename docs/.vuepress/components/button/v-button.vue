@@ -48,7 +48,7 @@
   }
 </script>
 <style>
-    .row {
+    .v-row {
         margin: 20px 0;
     }
 </style>
