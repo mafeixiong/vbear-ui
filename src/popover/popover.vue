@@ -1,15 +1,19 @@
 <template>
+
     <div class="v-popover" ref="popover">
-        <div ref="contentWrapper"
-             class="v-popover-content"
-             v-if="visible"
-             :class="{[`v-position-${position}`]:true}">
-            <slot name="content"></slot>
-        </div>
+        <transition name="fade">
+            <div ref="contentWrapper"
+                 class="v-popover-content"
+                 v-if="visible"
+                 :class="{[`v-position-${position}`]:true}">
+                <slot name="content"></slot>
+            </div>
+        </transition>
         <span ref="triggerWrapper" class="v-popover-button">
             <slot></slot>
         </span>
     </div>
+
 </template>
 
 <script>
@@ -116,6 +120,15 @@
 </script>
 
 <style lang="scss" scoped>
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .3s;
+    }
+
+    .fade-enter, .fade-leave-to
+    {
+        opacity: 0;
+    }
+
     $boder-color: #333;
     .v-popover {
         display: inline-block;
