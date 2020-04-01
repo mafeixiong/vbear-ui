@@ -7,7 +7,7 @@ sidebarDepth: 2
 使用方法
 
 <ClientOnly>
-  <tabs-v-tabs/>
+  <tabs-demos/>
 </ClientOnly>
 
 ```html

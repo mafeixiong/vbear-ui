@@ -1,5 +1,5 @@
 import Toast from '../toast/toast'
-
+let zIndex = 2222
 let currentToast = null
 
 export default {
@@ -27,6 +27,7 @@ function createToast({Vue, message, propsData, onClose}) {
     toast.$slots.default = [message]
     toast.$mount()
     toast.$on('close', onClose)
+    toast.$el.style.zIndex = ++zIndex
     document.body.appendChild(toast.$el)
     return toast
 }

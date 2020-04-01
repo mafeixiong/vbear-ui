@@ -15,29 +15,8 @@
         <v-row>
             <v-input v-model="message" icon="v-user"></v-input>
         </v-row>
-        <div style="margin-top: 10px">
-            <v-button>测试</v-button>
-            <v-button type="primary">主要按钮</v-button>
-            <v-button type="success">成功按钮</v-button>
-            <v-button type="info">信息按钮</v-button>
-            <v-button type="warning">警告按钮</v-button>
-            <v-button type="danger">危险按钮</v-button>
-        </div>
+        <v-button @click="xxx">按钮</v-button>
 
-        <div style="margin-top: 10px">
-            <v-button plain>测试</v-button>
-            <v-button plain type="primary">主要按钮</v-button>
-            <v-button plain type="success">成功按钮</v-button>
-            <v-button plain type="info">信息按钮</v-button>
-            <v-button plain type="warning">警告按钮</v-button>
-            <v-button plain type="danger">危险按钮</v-button>
-        </div>
-        <v-popover position="right">
-            <template slot="content">
-                <div>popover内容</div>
-            </template>
-            <v-button>点我</v-button>
-        </v-popover>
     </div>
 </template>
 
@@ -47,6 +26,10 @@
   import Input from './input/input'
   import vRow from './grid/row'
   import vPopover from './popover/popover'
+  import Vue from 'vue'
+  import ToastPlugin from './lib/plugin'
+
+  Vue.use(ToastPlugin)
 
   export default {
     name: 'demo',
@@ -62,7 +45,25 @@
         text: "textarea",
         flag: true
       }
-    }
+    },
+    methods: {
+      xxx () {
+        console.log('111')
+        console.log(this.$toast)
+        this.$toast(`你的智商目前为 ${parseInt(Math.random() * 100)}。你的智商需要充值！`, {
+          position: 'middle',
+          enableHtml: false,
+          closeButton: {
+            text: '已充值',
+            callback () {
+              console.log('他说已经充值智商了')
+            }
+          },
+          autoClose: false,
+          autoCloseDelay: 3
+        })
+      },
+    },
   }
 </script>
 
