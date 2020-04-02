@@ -59,9 +59,15 @@
         height: 100%;
         display: flex;
         align-items: center;
+        color: #303133;
+        margin-right: 30px;
+        transition: color .3s cubic-bezier(.645,.045,.355,1);
+        .v-icon {
+            margin-right: 8px;
+        }
         &.active {
-            color: $blue;
-            font-weight: bold;
+            color: #409eff;
+            font-weight: 500;
         }
         &.disabled {
             color: $disabled-text-color;

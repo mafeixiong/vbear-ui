@@ -2,6 +2,9 @@
     <div>
         <v-tabs :selected.sync="selectedTab">
             <v-tabs-head>
+                <template slot="actions">
+                    <v-button icon="v-settings">设置</v-button>
+                </template>
                 <v-tabs-item name="tab1">Tab1</v-tabs-item>
                 <v-tabs-item name="tab2">Tab2</v-tabs-item>
                 <v-tabs-item name="tab3">Tab3</v-tabs-item>

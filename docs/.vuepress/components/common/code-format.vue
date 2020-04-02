@@ -140,7 +140,7 @@
                     .v-show-component-wrapper {
                         border-bottom: 1px solid #ebebeb;
                         // padding: 10px 0;
-                        padding-left: 12px;
+                        padding: 10px;
 
                         .v-show-component {
                             // border: 1px solid red;

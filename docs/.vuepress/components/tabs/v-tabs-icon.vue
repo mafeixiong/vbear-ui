@@ -2,14 +2,18 @@
     <div>
         <v-tabs :selected.sync="selectedTab">
             <v-tabs-head>
-                <v-tabs-item name="tab1">Tab1</v-tabs-item>
-                <v-tabs-item name="tab2">Tab2</v-tabs-item>
-                <v-tabs-item name="tab3">Tab3</v-tabs-item>
+                <v-tabs-item name="tab1">
+                    <v-icon icon="v-user"></v-icon>
+                    Tab1
+                </v-tabs-item>
+                <v-tabs-item name="tab2">
+                    <v-icon icon="v-settings"></v-icon>
+                    Tab2
+                </v-tabs-item>
             </v-tabs-head>
             <v-tabs-body>
                 <v-tabs-pane name="tab1">这是Tab1的内容</v-tabs-pane>
                 <v-tabs-pane name="tab2">这是Tab2的内容</v-tabs-pane>
-                <v-tabs-pane name="tab3">这是Tab3的内容</v-tabs-pane>
             </v-tabs-body>
         </v-tabs>
     </div>

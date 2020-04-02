@@ -16,25 +16,25 @@ sidebarDepth: 2
   </div>
 
   <div slot="description">
-    <header class="vi-description-title">
+    <header class="v-description-title">
       基础用法
     </header>
-    <p class="vi-description-text">
-      给按钮绑定一个点击事件，通过<span class="add-color">this.$toast</span>方法传递参数，第一个参数是个字符串<span class="add-color">message</span>、第二个参数是一个对象，对象属性有<span class="add-color">closeButton</span>：关闭按钮，<span class="add-color">autoClose</span>：自动关闭，<span class="add-color">duration</span>：关闭按钮时间，<span class="add-color">position</span>：按钮在页面中的位置。
+    <p class="v-description-text">
+      给按钮绑定一个点击事件，通过<span class="add-color">this.$toast</span>方法传递参数，第一个参数是个字符串<span class="add-color">message</span>、第二个参数是一个对象，对象属性有<span class="add-color">closeButton</span>：关闭按钮，<span class="add-color">autoClose</span>：自动关闭，<span class="add-color">autoCloseDelay</span>：关闭按钮时间，<span class="add-color">position</span>：按钮在页面中的位置。
       可以接收点击关闭的回调函数 <span class="add-color">callback</span>
     </p>
-    <header class="vi-description-title">
+    <header class="v-description-title">
       点击关闭
     </header>
   </div>
 
-  <div slot="showComponents" class="vi-show-component">
+  <div slot="showComponents" class="v-show-component">
     <toast-v-toast/>
   </div>
 
-  <section slot="desc" class="vi-code-description">
-    <p class="vi-paraStyle-wrapper">
-      设置<span class="vi-paraStyle">autoClose</span>属性为false，取消自动关闭。
+  <section slot="desc" class="v-code-description">
+    <p class="v-paraStyle-wrapper">
+      设置<span class="v-paraStyle">autoClose</span>属性为false，取消自动关闭。
     </p>
   </section>
 
@@ -67,21 +67,21 @@ sidebarDepth: 2
 <common-code-format>
 
   <div slot="description">
-    <header class="vi-description-title">
+    <header class="v-description-title">
       自动关闭
     </header>
-    <p class="vi-description-text">
-      属性<span class="add-color">duration</span>可以控制按钮隔几秒后关闭。
+    <p class="v-description-text">
+      属性<span class="add-color">autoCloseDelay</span>可以控制按钮隔几秒后关闭。
     </p>
   </div>
 
-  <div slot="showComponents" class="vi-show-component">
+  <div slot="showComponents" class="v-show-component">
     <toast-v-toast-auto/>
   </div>
 
-  <section slot="desc" class="vi-code-description">
-    <p class="vi-paraStyle-wrapper">
-      属性<span class="vi-paraStyle">autoCloseDelay</span>可设置几秒钟后自动关闭。
+  <section slot="desc" class="v-code-description">
+    <p class="v-paraStyle-wrapper">
+      属性<span class="v-paraStyle">autoCloseDelay</span>可设置几秒钟后自动关闭。
     </p>
   </section>
 

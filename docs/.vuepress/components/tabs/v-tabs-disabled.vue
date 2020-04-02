@@ -3,7 +3,7 @@
         <v-tabs :selected.sync="selectedTab">
             <v-tabs-head>
                 <v-tabs-item name="tab1">Tab1</v-tabs-item>
-                <v-tabs-item name="tab2">Tab2</v-tabs-item>
+                <v-tabs-item name="tab2" disabled>Tab2</v-tabs-item>
                 <v-tabs-item name="tab3">Tab3</v-tabs-item>
             </v-tabs-head>
             <v-tabs-body>
