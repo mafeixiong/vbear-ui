@@ -14,6 +14,13 @@
         type: String,
         required: true,
       },
+      type: {
+        type: String,
+        default: 'border',
+        validate (value) {
+          return ['border', 'card'].indexOf(value) > -1
+        },
+      },
     },
     data () {
       return {

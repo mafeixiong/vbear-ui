@@ -1,10 +1,11 @@
 <template>
     <div class="v-input">
         <div class="v-input-wrapper" v-if="type === 'text'">
-            <span v-if="icon" class="icon">
+            <span v-if="icon && !clear" class="icon">
                 <v-icon :icon="iconName"></v-icon>
             </span>
-            <input :type="currentInputType" :value="value" :disabled="disabled" :readonly="readonly"
+            <input :type="currentInputType" v-model="currentValue" :disabled="disabled" :readonly="readonly"
+                   ref="input" :style="icon || showPassword || clear ? 'padding-right:34px' : ''"
                    :placeholder="placeholder"
                    @change="$emit('change', $event.target.value)"
                    @input="$emit('input', $event.target.value)"
@@ -14,11 +15,14 @@
             <span v-if="showPassword" class="show-password" @click="togglePassword">
                 <v-icon :icon="currentPassword ? 'v-open-eyes' : 'v-close-eyes'"></v-icon>
             </span>
+            <span v-if="clear" class="show-clear" @click="clearInputVal">
+                <v-icon :icon="clear ? 'v-close' : ''"></v-icon>
+            </span>
         </div>
         <div class="v-input-wrapper" v-if="type === 'textarea'">
-            <textarea :placeholder="placeholder" cols="30" rows="2"
+            <textarea :placeholder="placeholder" cols="30" rows="2" ref="textarea"
                       :style="!autosize ? 'resize:none' : ''"
-                      :value="value" :disabled="disabled" :readonly="readonly"
+                      v-model="currentValue" :disabled="disabled" :readonly="readonly"
                       @change="$emit('change', $event.target.value)"
                       @input="$emit('input', $event.target.value)"
                       @focus="$emit('focus', $event.target.value)"
@@ -64,17 +68,22 @@
           return ['text', 'textarea'].indexOf(value) > -1
         },
       },
+      clear: {
+        type: Boolean,
+        default: false,
+      },
     },
     data () {
       return {
+        currentValue: this.value,
         currentInputType: this.type,
-        currentPassword: this.showPassword
+        currentPassword: this.showPassword,
       }
     },
     computed: {
       iconName () {
         return this.icon
-      }
+      },
     },
     mounted () {
       this.showPassword && this.togglePassword()
@@ -88,6 +97,11 @@
           this.currentInputType = 'password'
           this.currentPassword = false
         }
+      },
+      clearInputVal () {
+        this.currentValue = ''
+        this.$refs.input && this.$refs.input.focus()
+        this.$refs.textarea && this.$refs.textarea.focus()
       },
     },
   }
@@ -148,6 +162,7 @@
             font-size: 14px;
             border-radius: 4px;
             min-height: 30px;
+
             &:hover {
                 border-color: $border-color-hover;
             }
@@ -157,7 +172,8 @@
             }
         }
 
-        .show-password {
+        .show-password,
+        .show-clear {
             position: absolute;
             right: 24px;
             top: 50%;

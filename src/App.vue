@@ -1,10 +1,13 @@
 <template>
     <div>
         <v-row>
+            <v-input v-model="message"></v-input>
+        </v-row>
+        <v-row>
             <v-input v-model="message" :show-password="flag"></v-input>
         </v-row>
         <v-row>
-            <v-input v-model="text" :autosize="flag" type="textarea"></v-input>
+            <v-input v-model="text" :autosize="flag" clear type="textarea"></v-input>
         </v-row>
         <v-row>
             <v-input v-model="message" disabled></v-input>
@@ -14,6 +17,9 @@
         </v-row>
         <v-row>
             <v-input v-model="message" icon="v-user"></v-input>
+        </v-row>
+        <v-row>
+            <v-input v-model="clearVal" @input="handleInput" clear></v-input>
         </v-row>
         <v-button @click="xxx">按钮</v-button>
 
@@ -43,10 +49,14 @@
       return {
         message: '这是input的数据',
         text: "textarea",
+        clearVal: 'clear的数据',
         flag: true
       }
     },
     methods: {
+      handleInput(event) {
+        console.log(event)
+      },
       xxx () {
         console.log('111')
         console.log(this.$toast)
