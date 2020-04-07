@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-input v-model="message"></v-input>
+        <v-input v-model="message" show-password></v-input>
     </div>
 </template>
 
@@ -15,7 +15,7 @@
     },
     data () {
       return {
-        message: '请输入内容',
+        message: '123456',
       }
     },
   }

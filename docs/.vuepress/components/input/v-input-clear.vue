@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-input v-model="message"></v-input>
+        <v-input v-model="message" clear></v-input>
     </div>
 </template>
 
@@ -15,7 +15,7 @@
     },
     data () {
       return {
-        message: '请输入内容',
+        message: '内容可被清除',
       }
     },
   }

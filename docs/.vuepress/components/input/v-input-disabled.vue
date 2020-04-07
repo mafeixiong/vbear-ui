@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-input v-model="message"></v-input>
+        <v-input v-model="message" disabled></v-input>
     </div>
 </template>
 
