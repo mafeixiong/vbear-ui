@@ -22,6 +22,11 @@
             <v-input v-model="clearVal" @input="handleInput" clear></v-input>
         </v-row>
         <v-button @click="xxx">按钮</v-button>
+        <v-collapse :selected.sync="selected">
+            <v-collapse-item title="标题1" name="1">内容1</v-collapse-item>
+            <v-collapse-item title="标题2" name="2">内容2</v-collapse-item>
+            <v-collapse-item title="标题3" name="3">内容3</v-collapse-item>
+        </v-collapse>
 
     </div>
 </template>
@@ -32,6 +37,8 @@
   import Input from './input/input'
   import vRow from './grid/row'
   import vPopover from './popover/popover'
+  import vCollapse from './collapse/collapse'
+  import vCollapseItem from './collapse/collapse-item'
   import Vue from 'vue'
   import ToastPlugin from './lib/plugin'
 
@@ -43,14 +50,17 @@
       'v-button': Button,
       'v-input': Input,
       'v-row': vRow,
-      vPopover
+      vPopover,
+      vCollapse,
+      vCollapseItem
     },
     data () {
       return {
         message: '这是input的数据',
         text: "textarea",
         clearVal: 'clear的数据',
-        flag: true
+        flag: true,
+        selected: ['1','2']
       }
     },
     methods: {

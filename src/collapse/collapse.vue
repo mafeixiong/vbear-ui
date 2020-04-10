@@ -5,51 +5,50 @@
 </template>
 
 <script>
-    import Vue from 'vue'
+  import Vue from 'vue'
 
-    export default {
-        name: "vCollapse",
-        props: {
-            single: {
-                type: Boolean,
-                default: false
-            },
-            selected: {
-                type: Array,
-            }
-        },
-        data() {
-            return {
-                eventBus: new Vue()
-            }
-        },
-        provide() {
-            return {
-                eventBus: this.eventBus
-            }
-        },
-        mounted() {
-            this.$emit('update:selected', this.selected)
-            this.eventBus.$on('update:addSelected', (name) => {
-                let selectCopy = JSON.parse(JSON.stringify(this.selected))
-                if (this.single) {
-                    selectCopy = [name]
-                } else {
-                    selectCopy.push(name)
-                }
-                this.eventBus.$emit('update:selected', selectCopy)
-                this.$emit('update:selected', selectCopy)
-                console.log(selectCopy)
-            })
-            this.eventBus.$on('update:removeSelected', (name) => {
-                let selectCopy = JSON.parse(JSON.stringify(this.selected))
-                let index = selectCopy.indexOf(name)
-                selectCopy.splice(index, 1)
-                this.eventBus.$emit('update:selected', selectCopy)
-                this.$emit('update:selected', selectCopy)
-            })
+  export default {
+    name: 'vCollapse',
+    props: {
+      single: {
+        type: Boolean,
+        default: false,
+      },
+      selected: {
+        type: Array,
+      },
+    },
+    data () {
+      return {
+        eventBus: new Vue(),
+      }
+    },
+    provide () {
+      return {
+        eventBus: this.eventBus,
+      }
+    },
+    mounted () {
+      this.eventBus.$emit('update:selected', this.selected, this.single)
+      this.eventBus.$on('update:addSelected', (name) => {
+        let selectedCopy = JSON.parse(JSON.stringify(this.selected))
+        if (this.single) {
+          selectedCopy = [name]
+        } else {
+          selectedCopy.push(name)
         }
-    }
+        this.$emit('update:selected', selectedCopy)
+        this.eventBus.$emit('update:selected', selectedCopy)
+      })
+      this.eventBus.$on('update:removeSelected', (name) => {
+        let selectedCopy = JSON.parse(JSON.stringify(this.selected))
+        let index = this.selected.indexOf(name)
+        selectedCopy.splice(index, 1)
+        this.$emit('update:selected', selectedCopy)
+        this.eventBus.$emit('update:selected', selectedCopy)
+      })
+    },
+  }
 </script>
 
 <style lang="scss" scoped>

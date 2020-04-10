@@ -3,29 +3,34 @@
         <div class="title" @click="toggle" :data-name="name">
             {{title}}
         </div>
-        <div class="content" ref="content" v-if="open">
-            <slot></slot>
-        </div>
+        <collapse-transition>
+            <div class="content" ref="content" v-if="open">
+                <slot></slot>
+            </div>
+        </collapse-transition>
     </div>
 </template>
 
 <script>
+  import collapseTransition from '../lib/transition'
+
   export default {
     name: 'vCollapseItem',
+    components: {collapseTransition},
     inject: ['eventBus'],
     props: {
       title: {
         type: String,
-        required: true
+        required: true,
       },
       name: {
         type: String,
-        required: true
-      }
+        required: true,
+      },
     },
     data () {
       return {
-        open: false
+        open: false,
       }
     },
     mounted () {
@@ -44,8 +49,8 @@
         } else {
           this.eventBus && this.eventBus.$emit('update:addSelected', this.name)
         }
-      }
-    }
+      },
+    },
 
   }
 </script>
@@ -54,6 +59,7 @@
     $grey: #ddd;
     $border-radius: 4px;
     .collapseItem {
+
         > .title {
             border: 1px solid $grey;
             margin-top: -1px;
@@ -64,21 +70,27 @@
             align-items: center;
             padding: 0 8px;
             background: lighten($grey, 8%);
+            cursor: pointer;
         }
+
         &:first-child {
             > .title {
                 border-top-left-radius: $border-radius;
                 border-top-right-radius: $border-radius;
             }
+
         }
+
         &:last-child {
             > .title:last-child {
                 border-bottom-left-radius: $border-radius;
                 border-bottom-right-radius: $border-radius;
             }
         }
+
         > .content {
             padding: 8px;
+            will-change: height;
         }
     }
 </style>
