@@ -1,32 +1,8 @@
 <template>
     <div>
-        <v-row>
-            <v-input v-model="message"></v-input>
-        </v-row>
-        <v-row>
-            <v-input v-model="message" :show-password="flag"></v-input>
-        </v-row>
-        <v-row>
-            <v-input v-model="text" :autosize="flag" clear type="textarea"></v-input>
-        </v-row>
-        <v-row>
-            <v-input v-model="message" disabled></v-input>
-        </v-row>
-        <v-row>
-            <v-input v-model="message" readonly></v-input>
-        </v-row>
-        <v-row>
-            <v-input v-model="message" icon="v-user"></v-input>
-        </v-row>
-        <v-row>
-            <v-input v-model="clearVal" @input="handleInput" clear></v-input>
-        </v-row>
-        <v-button @click="xxx">按钮</v-button>
-        <v-collapse :selected.sync="selected">
-            <v-collapse-item title="标题1" name="1">内容1</v-collapse-item>
-            <v-collapse-item title="标题2" name="2">内容2</v-collapse-item>
-            <v-collapse-item title="标题3" name="3">内容3</v-collapse-item>
-        </v-collapse>
+        {{selected}}
+        <v-table :data="data" :columns="columns" number-visible :selected-items.sync="selected" bordered></v-table>
+        <v-table :data="data" :columns="columns" bordered compact></v-table>
 
     </div>
 </template>
@@ -39,6 +15,7 @@
   import vPopover from './popover/popover'
   import vCollapse from './collapse/collapse'
   import vCollapseItem from './collapse/collapse-item'
+  import vTable from './table/table'
   import Vue from 'vue'
   import ToastPlugin from './lib/plugin'
 
@@ -47,46 +24,32 @@
   export default {
     name: 'demo',
     components: {
-      'v-button': Button,
-      'v-input': Input,
-      'v-row': vRow,
-      vPopover,
-      vCollapse,
-      vCollapseItem
+      vTable,
     },
     data () {
       return {
-        message: '这是input的数据',
-        text: "textarea",
-        clearVal: 'clear的数据',
-        flag: true,
-        selected: ['1','2']
+        columns: [
+          {text: '姓名', field: 'name'},
+          {text: '分数', field: 'score'},
+        ],
+        data: [
+          {id: 1, name: '大雄', score: 100},
+          {id: 2, name: '圆圆', score: 99},
+          {id: 3, name: '张三', score: 100},
+          {id: 4, name: '李四', score: 99},
+          {id: 5, name: '超人', score: 100},
+          {id: 6, name: '蝙蝠侠', score: 99},
+          {id: 7, name: '蜘蛛侠', score: 100},
+          {id: 8, name: '钢铁侠', score: 99},
+        ],
+        selected: [],
       }
-    },
-    methods: {
-      handleInput(event) {
-        console.log(event)
-      },
-      xxx () {
-        console.log('111')
-        console.log(this.$toast)
-        this.$toast(`你的智商目前为 ${parseInt(Math.random() * 100)}。你的智商需要充值！`, {
-          position: 'middle',
-          enableHtml: false,
-          closeButton: {
-            text: '已充值',
-            callback () {
-              console.log('他说已经充值智商了')
-            }
-          },
-          autoClose: false,
-          autoCloseDelay: 3
-        })
-      },
     },
   }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+    /deep/ .v-table {
+        margin: 20px 0 !important;
+    }
 </style>

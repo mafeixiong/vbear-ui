@@ -2,6 +2,7 @@
 title: Input
 sidebarDepth: 2
 ---
+<ClientOnly>
 <common-code-format>
   <div slot="componentNameTitle" class="component">
     <header class="component-name">
