@@ -1,7 +1,10 @@
 <template>
     <div>
         {{selected}}
-        <v-table :data="data" :columns="columns" number-visible :selected-items.sync="selected" bordered></v-table>
+        <v-table :data="data" :columns="columns"
+                 number-visible :selected-items.sync="selected"
+                 :order-by.sync="orderBy" bordered
+                 @update:orderBy="loadData" :loading="loading"></v-table>
         <v-table :data="data" :columns="columns" bordered compact></v-table>
 
     </div>
@@ -42,8 +45,21 @@
           {id: 7, name: '蜘蛛侠', score: 100},
           {id: 8, name: '钢铁侠', score: 99},
         ],
+        orderBy: {
+          score: 'desc',
+        },
         selected: [],
+        loading: false,
       }
+    },
+    methods: {
+      loadData () {
+        this.loading = true
+        setTimeout(() => {
+          this.data = this.data.sort((a, b) => a.score - b.score)
+          this.loading = false
+        }, 3000)
+      },
     },
   }
 </script>
