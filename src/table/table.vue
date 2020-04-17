@@ -1,37 +1,49 @@
 <template>
-    <div class="v-table-wrapper">
-        <table class="v-table" :class="{striped, bordered, compact}">
-            <thead>
-            <tr>
-                <th width="50"><input type="checkbox" @change="onChangeAllItems" ref="allChecked"
-                                      :checked="areAllItemsSelected"/></th>
-                <th v-if="numberVisible">序号</th>
-                <th v-for="column in columns" :key="column.field">
-                    <div class="v-table-header">
-                        {{column.text}}
-                        <span v-if="column.field in orderBy" class="v-table-sorter"
-                              @click="changeOrderBy(column.field)">
+    <div class="v-table-wrapper" ref="wrapper">
+        <div :style="{height, overflow: 'auto'}" ref="tableWrapper">
+            <table class="v-table" :class="{striped, bordered, compact}" ref="table">
+                <thead>
+                <tr>
+                    <th v-if="expendField" :style="{width: '50px'}" class="v-table-center"></th>
+                    <th v-if="checkable" :style="{width: '50px'}" class="v-table-center">
+                        <input type="checkbox" @change="onChangeAllItems" ref="allChecked" :checked="areAllItemsSelected"/>
+                    </th>
+                    <th :style="{width: '50px'}" v-if="numberVisible">序号</th>
+                    <th :style="{width: column.width + 'px'}" v-for="column in columns" :key="column.field">
+                        <div class="v-table-header">
+                            {{column.text}}
+                            <span v-if="column.field in orderBy" class="v-table-sorter"
+                                  @click="changeOrderBy(column.field)">
                             <v-icon icon="v-sort-asc" :class="{active: orderBy[column.field] === 'asc'}"></v-icon>
                             <v-icon icon="v-sort-desc" :class="{active: orderBy[column.field] === 'desc'}"></v-icon>
                         </span>
-                    </div>
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="(item,index) of data" :key="item.id">
-                <th><label>
-                    <input type="checkbox"
-                           @change="onChangeItems(item, index, $event)"
-                           :checked="inSelectedItems(item)"/>
-                </label></th>
-                <td width="50" v-if="numberVisible">{{index+1}}</td>
-                <template v-for="column in columns">
-                    <td :key="column.field">{{item[column.field]}}</td>
+                        </div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <template v-for="(item,index) of data">
+                    <tr :key="item.id">
+                        <td :style="{width: '50px'}" class="v-table-center">
+                            <v-icon icon="v-right" v-if="expendField" class="v-table-expendIcon" @click="expendItem(item.id, $event)"></v-icon>
+                        </td>
+                        <td v-if="checkable" :style="{width: '50px'}" class="v-table-center"><label>
+                            <input type="checkbox" @change="onChangeItems(item, index, $event)" :checked="inSelectedItems(item)"/>
+                        </label></td>
+                        <td :style="{width: '50px'}" v-if="numberVisible">{{index+1}}</td>
+                        <template v-for="column in columns">
+                            <td :style="{width: column.width + 'px'}" :key="column.field">{{item[column.field]}}</td>
+                        </template>
+                    </tr>
+                    <tr v-if="inExpendedIds(item.id)">
+                        <td :colspan="columns.length + expendedCellColSpan ">
+                            {{item[expendField] || '空'}}
+                        </td>
+                    </tr>
                 </template>
-            </tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
         <div v-if="loading" class="v-table-loading">
             <v-icon icon="v-loading"></v-icon>
         </div>
@@ -39,7 +51,7 @@
 </template>
 
 <script>
-  export default {
+    export default {
     name: 'vTable',
     props: {
       data: {
@@ -57,9 +69,19 @@
         type: Array,
         default: () => [],
       },
+      height: {
+        type: Number,
+      },
       orderBy: {
         type: Object,
         default: () => ({}),
+      },
+      expendField: {
+        type: String,
+      },
+      checkable: {
+        type: Boolean,
+        default: false,
       },
       loading: {
         type: Boolean,
@@ -81,6 +103,11 @@
         type: Boolean,
         default: false,
       },
+    },
+    data () {
+      return {
+        expendedIds: [],
+      }
     },
     watch: {
       selectedItems () {
@@ -107,6 +134,23 @@
         }
         return equal
       },
+      expendedCellColSpan () {
+        let colSpan = 1
+        if (this.checkable) { colSpan += 1 }
+        if (this.expendField) { colSpan += 1 }
+        return colSpan
+      },
+    },
+    mounted () {
+      let cloneTable = this.$refs.table.cloneNode(false)
+      this.cloneTable = cloneTable
+      cloneTable.classList.add('v-table-copy')
+      let tHead = this.$refs.table.children[0]
+      let {height} = tHead.getBoundingClientRect()
+      this.$refs.tableWrapper.style.paddingTop = height + 'px'
+      this.$refs.tableWrapper.style.height = this.height - height + 'px'
+      cloneTable.appendChild(tHead)
+      this.$refs.wrapper.appendChild(cloneTable)
     },
     methods: {
       inSelectedItems (item) {
@@ -137,6 +181,16 @@
           copy[field] = 'asc'
         }
         this.$emit('update:orderBy', copy)
+      },
+      inExpendedIds (id) {
+        return this.expendedIds.indexOf(id) >= 0
+      },
+      expendItem (id, e) {
+        if (this.inExpendedIds(id)) {
+          this.expendedIds.splice(this.expendedIds.indexOf(id), 1)
+        } else {
+          this.expendedIds.push(id)
+        }
       },
     },
   }
@@ -239,6 +293,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            z-index: 1;
 
             svg {
                 width: 50px;
@@ -246,5 +301,35 @@
                 @include spin;
             }
         }
+
+        &-copy {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+        }
+
+        &-expendIcon {
+            width: 10px;
+            height: 10px;
+        }
+
+        & &-center {
+            text-align: center;
+        }
     }
+
+    .icon-no-expend{
+        transition: transform .2s ease-in-out;
+        transform: rotate(0deg);
+    }
+    .icon-expend{
+        transition: transform .2s ease-in-out;
+        transform: rotate(90deg);
+    }
+    svg{
+        cursor: pointer;
+    }
+
 </style>
