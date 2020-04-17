@@ -1,11 +1,11 @@
 <template>
     <div>
         {{selected}}
-        <v-table :data="data" :columns="columns"
-                 number-visible :selected-items.sync="selected"
-                 :order-by.sync="orderBy" bordered
+        <v-table :data="data" :columns="columns" expend-field="description"
+                 number-visible :selected-items.sync="selected" checkable
+                 :order-by.sync="orderBy" bordered :height="400"
                  @update:orderBy="loadData" :loading="loading"></v-table>
-        <v-table :data="data" :columns="columns" bordered compact></v-table>
+        <!--        <v-table :data="data" :columns="columns" bordered compact></v-table>-->
 
     </div>
 </template>
@@ -33,23 +33,19 @@
       return {
         columns: [
           {text: '姓名', field: 'name'},
-          {text: '分数', field: 'score'},
+          {text: '分数', field: 'score', width: 100},
         ],
-        data: [
-          {id: 1, name: '大雄', score: 100},
-          {id: 2, name: '圆圆', score: 99},
-          {id: 3, name: '张三', score: 100},
-          {id: 4, name: '李四', score: 99},
-          {id: 5, name: '超人', score: 100},
-          {id: 6, name: '蝙蝠侠', score: 99},
-          {id: 7, name: '蜘蛛侠', score: 100},
-          {id: 8, name: '钢铁侠', score: 99},
-        ],
+        data: [],
         orderBy: {
           score: 'desc',
         },
         selected: [],
         loading: false,
+      }
+    },
+    created () {
+      for (let i = 1; i <= 30; i++) {
+        this.data.push({id: i, name: `这是mock数据${i}`, score: Math.ceil(Math.random() * 100), description: i % 2 == 0 ? `这是description${i}测试` : ''})
       }
     },
     methods: {
@@ -63,9 +59,3 @@
     },
   }
 </script>
-
-<style lang="scss" scoped>
-    /deep/ .v-table {
-        margin: 20px 0 !important;
-    }
-</style>
