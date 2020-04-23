@@ -6,7 +6,8 @@
                 <tr>
                     <th v-if="expendField" :style="{width: '50px'}" class="v-table-center"></th>
                     <th v-if="checkable" :style="{width: '50px'}" class="v-table-center">
-                        <input type="checkbox" @change="onChangeAllItems" ref="allChecked" :checked="areAllItemsSelected"/>
+                        <input type="checkbox" @change="onChangeAllItems" ref="allChecked"
+                               :checked="areAllItemsSelected"/>
                     </th>
                     <th :style="{width: '50px'}" v-if="numberVisible">序号</th>
                     <th :style="{width: column.width + 'px'}" v-for="column in columns" :key="column.field">
@@ -19,21 +20,36 @@
                         </span>
                         </div>
                     </th>
+                    <th ref="actionsHeader" v-if="$scopedSlots.default"></th>
                 </tr>
                 </thead>
                 <tbody>
                 <template v-for="(item,index) of data">
                     <tr :key="item.id">
                         <td :style="{width: '50px'}" class="v-table-center">
-                            <v-icon icon="v-right" v-if="expendField" class="v-table-expendIcon" @click="expendItem(item.id, $event)"></v-icon>
+                            <v-icon icon="v-right" v-if="expendField && item.description" :class="expendClass(item)"
+                                    @click="expendItem(item.id, $event)"></v-icon>
                         </td>
                         <td v-if="checkable" :style="{width: '50px'}" class="v-table-center"><label>
-                            <input type="checkbox" @change="onChangeItems(item, index, $event)" :checked="inSelectedItems(item)"/>
+                            <input type="checkbox" @change="onChangeItems(item, index, $event)"
+                                   :checked="inSelectedItems(item)"/>
                         </label></td>
                         <td :style="{width: '50px'}" v-if="numberVisible">{{index+1}}</td>
                         <template v-for="column in columns">
-                            <td :style="{width: column.width + 'px'}" :key="column.field">{{item[column.field]}}</td>
+                            <td :style="{width: column.width + 'px'}" :key="column.field">
+                                <template v-if="column.render">
+                                    <vnodes :field="column.render({value: item[column.field]})"></vnodes>
+                                </template>
+                                <template v-else>
+                                    {{item[column.field]}}
+                                </template>
+                            </td>
                         </template>
+                        <td v-if="$scopedSlots.default">
+                            <div ref="actions" style="display: inline-block">
+                                <slot :row="item"></slot>
+                            </div>
+                        </td>
                     </tr>
                     <tr v-if="inExpendedIds(item.id)">
                         <td :colspan="columns.length + expendedCellColSpan ">
@@ -51,8 +67,14 @@
 </template>
 
 <script>
-    export default {
+  export default {
     name: 'vTable',
+    components: {
+      vnodes: {
+        functional: true,
+        render: (h, context) => context.props.field
+      }
+    },
     props: {
       data: {
         type: Array,
@@ -60,10 +82,6 @@
         validator (array) {
           return !(array.filter(item => item.id === undefined).length > 0)
         },
-      },
-      columns: {
-        type: Array,
-        required: true,
       },
       selectedItems: {
         type: Array,
@@ -107,6 +125,7 @@
     data () {
       return {
         expendedIds: [],
+        columns: []
       }
     },
     watch: {
@@ -135,24 +154,60 @@
         return equal
       },
       expendedCellColSpan () {
-        let colSpan = 1
+        let colSpan = this.columns.length
         if (this.checkable) { colSpan += 1 }
         if (this.expendField) { colSpan += 1 }
         return colSpan
       },
     },
     mounted () {
-      let cloneTable = this.$refs.table.cloneNode(false)
-      this.cloneTable = cloneTable
-      cloneTable.classList.add('v-table-copy')
-      let tHead = this.$refs.table.children[0]
-      let {height} = tHead.getBoundingClientRect()
-      this.$refs.tableWrapper.style.paddingTop = height + 'px'
-      this.$refs.tableWrapper.style.height = this.height - height + 'px'
-      cloneTable.appendChild(tHead)
-      this.$refs.wrapper.appendChild(cloneTable)
+      this.renderColumns()
+      this.cloneTable()
+      this.operationColumn()
     },
     methods: {
+      expendClass(item) {
+        return {
+          ['v-table-expendIcon']: true,
+          ['v-table-unfold']: this.expendedIds.includes(item.id),
+          ['v-table-packup']: !this.expendedIds.includes(item.id)
+        }
+      },
+      renderColumns() {
+        this.columns = this.$slots.default.map(node => {
+          let {text, field, width} = node.componentOptions.propsData
+          let render = node.data.scopedSlots && node.data.scopedSlots.default
+          return {text, field, width, render}
+        })
+      },
+      cloneTable() {
+        let cloneTable = this.$refs.table.cloneNode(false)
+        this.cloneTable = cloneTable
+        cloneTable.classList.add('v-table-copy')
+        let tHead = this.$refs.table.children[0]
+        let {height} = tHead.getBoundingClientRect()
+        this.$refs.tableWrapper.style.paddingTop = height + 10 + 'px'
+        this.$refs.tableWrapper.style.height = this.height - height + 'px'
+        cloneTable.appendChild(tHead)
+        this.$refs.wrapper.appendChild(cloneTable)
+      },
+      operationColumn() {
+        if (this.$scopedSlots.default) {
+          let div = this.$refs.actions[0]
+          let {width} = div.getBoundingClientRect()
+          let styles = getComputedStyle(div.parentNode)
+          let paddingLeft = styles.getPropertyValue('padding-left')
+          let paddingRight = styles.getPropertyValue('padding-right')
+          let borderLeft = styles.getPropertyValue('border-left-width')
+          let borderRight = styles.getPropertyValue('border-right-width')
+          let actionsHeaderWidth = width + parseInt(paddingLeft) + parseInt(paddingRight) + parseInt(borderLeft) +
+            parseInt(borderRight) + 'px'
+          this.$refs.actionsHeader.style.width = actionsHeaderWidth
+          this.$refs.actions.map(div => {
+            div.parentNode.style.width = actionsHeaderWidth
+          })
+        }
+      },
       inSelectedItems (item) {
         return this.selectedItems.filter(v => v.id === item.id).length > 0
       },
@@ -185,7 +240,7 @@
       inExpendedIds (id) {
         return this.expendedIds.indexOf(id) >= 0
       },
-      expendItem (id, e) {
+      expendItem (id) {
         if (this.inExpendedIds(id)) {
           this.expendedIds.splice(this.expendedIds.indexOf(id), 1)
         } else {
@@ -313,6 +368,16 @@
         &-expendIcon {
             width: 10px;
             height: 10px;
+            transition: transform .2s ease-in-out;
+            cursor: pointer;
+        }
+
+        &-unfold {
+            transform: rotate(90deg);
+        }
+
+        &-packup {
+            transform: rotate(0deg);
         }
 
         & &-center {
@@ -320,16 +385,6 @@
         }
     }
 
-    .icon-no-expend{
-        transition: transform .2s ease-in-out;
-        transform: rotate(0deg);
-    }
-    .icon-expend{
-        transition: transform .2s ease-in-out;
-        transform: rotate(90deg);
-    }
-    svg{
-        cursor: pointer;
-    }
+
 
 </style>
