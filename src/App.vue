@@ -1,81 +1,55 @@
 <template>
-    <div>
-        {{selected}}
-        <v-table :data="data" expend-field="description"
-                 number-visible :selected-items.sync="selected" checkable
-                 :order-by.sync="orderBy" bordered :height="400"
-                 @update:orderBy="loadData" :loading="loading">
-            <v-table-column text="姓名" field="name" :width="300">
-                <template slot-scope="props">
-                    <a :href="`/users/${props.value}`">{{props.value}}</a>
-                </template>
-            </v-table-column>
-            <v-table-column text="分数" field="score"></v-table-column>
-            <template slot-scope="{row}">
-                <v-button @click="add(row)" type="primary">添加</v-button>
-                <v-button @click="edit(row)" type="primary">编辑</v-button>
-            </template>
-        </v-table>
-        <!--        <v-table :data="data" :columns="columns" bordered compact></v-table>-->
-
+    <div style="display: flex; justify-content: center;">
+        <div style="width: 600px; border: 1px solid black;">
+            <p>段落1</p>
+            <p>段落2</p>
+            <p>段落3</p>
+            <p>段落4</p>
+            <p>段落5</p>
+            <p>段落6</p>
+            <p>段落7</p>
+            <p>段落8</p>
+            <p>段落9</p>
+            <v-sticky :distance="100">
+                <div style="border: 1px solid red; ">
+                    <img src="https://i.loli.net/2020/04/27/UcBeGxRwXZESiI2.png" />
+                </div>
+            </v-sticky>
+            <p>段落1</p>
+            <p>段落2</p>
+            <p>段落3</p>
+            <p>段落4</p>
+            <p>段落5</p>
+            <p>段落6</p>
+            <p>段落7</p>
+            <p>段落8</p>
+            <p>段落9</p>
+            <p>段落10</p>
+            <p>段落11</p>
+            <p>段落12</p>
+            <p>段落13</p>
+            <p>段落14</p>
+            <p>段落15</p>
+            <p>段落16</p>
+            <p>段落17</p>
+            <p>段落18</p>
+            <p>段落19</p>
+            <p>段落20</p>
+        </div>
     </div>
+
 </template>
 
 <script>
-  import './icon/index'
-  import vButton from './button/button'
-  import Input from './input/input'
-  import vRow from './grid/row'
-  import vPopover from './popover/popover'
-  import vCollapse from './collapse/collapse'
-  import vCollapseItem from './collapse/collapse-item'
-  import vTable from './table/table'
-  import vTableColumn from './table/table-column'
-  import Vue from 'vue'
-  import ToastPlugin from './lib/plugin'
-
-  Vue.use(ToastPlugin)
+  import vSticky from './sticky/sticky'
 
   export default {
     name: 'demo',
     components: {
-      vTable,
-      vButton,
-      vTableColumn
-    },
-    data () {
-      return {
-        columns: [
-          {text: '姓名', field: 'name'},
-          {text: '分数', field: 'score', width: 100},
-        ],
-        data: [],
-        orderBy: {
-          score: 'desc',
-        },
-        selected: [],
-        loading: false,
-      }
-    },
-    created () {
-      for (let i = 1; i <= 30; i++) {
-        this.data.push({id: i, name: `这是mock数据${i}`, score: Math.ceil(Math.random() * 100), description: i % 2 === 0 ? `这是description${i}测试` : ''})
-      }
-    },
-    methods: {
-      loadData () {
-        this.loading = true
-        setTimeout(() => {
-          this.data = this.data.sort((a, b) => a.score - b.score)
-          this.loading = false
-        }, 3000)
-      },
-      add(row){
-        console.log(row)
-      },
-      edit(row){
-        console.log(row)
-      }
-    },
+      vSticky
+    }
   }
 </script>
+<style>
+    img {max-width: 100%;}
+</style>
